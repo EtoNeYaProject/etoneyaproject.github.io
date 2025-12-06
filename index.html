@@ -304,6 +304,42 @@
             text-align: center;
             border: 1px dashed rgba(0, 255, 157, 0.3);
             margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .key-value:hover {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--celestial);
+        }
+        
+        .key-value.copied {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--celestial);
+            color: var(--celestial);
+        }
+        
+        .copy-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--celestial);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            margin-top: 15px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .protocol-badge {
@@ -364,7 +400,7 @@
         }
         
         .z-box::before {
-            content: 'Z';
+            content: '🕊';
             position: absolute;
             font-size: 15rem;
             font-weight: 900;
@@ -480,6 +516,7 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(0, 255, 157, 0.3);
             margin-top: 15px;
+            cursor: pointer;
         }
         
         .creator-link:hover {
@@ -654,6 +691,28 @@
             animation: glow 3s ease-in-out infinite;
         }
         
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 255, 157, 0.9);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .copy-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
         /* Responsive - Mobile */
         @media (max-width: 992px) {
             .keys-grid,
@@ -751,6 +810,13 @@
             .creator-card h3 {
                 font-size: 1.5rem;
             }
+            
+            .copy-notification {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
+            }
         }
         
         @media (max-width: 480px) {
@@ -776,7 +842,8 @@
                 font-size: 1.5rem;
             }
             
-            .creator-link {
+            .creator-link,
+            .copy-btn {
                 padding: 8px 20px;
                 font-size: 0.9rem;
             }
@@ -829,6 +896,11 @@
 <body>
     <div id="particles-js"></div>
     
+    <!-- Copy Notification -->
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Ключ скопирован в буфер обмена!
+    </div>
+    
     <button class="mobile-menu-btn" id="mobileMenuBtn">
         <i class="fas fa-bars"></i>
     </button>
@@ -857,9 +929,11 @@
                     <div class="key-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Подписка:</h3>
+                    <h3>Основная подписка</h3>
                     <p>Просто вставь ссылку в Happ или V2Box</p>
-                    <div class="key-value">https://etoneya.a9fm.site/1</div>
+                    <div class="key-value" id="mainKey">
+                        https://etoneya.a9fm.site/1
+                    </div>
                     <div>
                         <span class="protocol-badge">Free</span>
                         <span class="protocol-badge">Love</span>
@@ -882,9 +956,6 @@
                     <p class="creator-description">
                         Основатель проекта. Отвечает за стратегию, финансирование и общее руководство. Имеет связи в нужных кругах.
                     </p>
-                    <a href="https://a9fm.site" target="_blank" class="creator-link">
-                        <i class="fas fa-external-link-alt"></i> Основной сайт
-                    </a>
                 </div>
                 
                 <div class="creator-card">
@@ -897,6 +968,7 @@
                         NewErka и его команда отвечают за техническую реализацию, обновление ключей и поддержку пользователей. 
                         <span style="color: var(--moonlight); font-style: italic;">Она на то и Security что бы быть защищеной...</span>
                     </p>
+
                 </div>
                 
                 <div class="creator-card">
@@ -954,7 +1026,7 @@
         <section class="main-content">
             <div class="card">
                 <h2>Инструкция по использованию</h2>
-                <p>1. Скопируйте подписку полностью (клик по синему полю)</p>
+                <p>1. Скопируйте подписку полностью (клик по синему полю или кнопке)</p>
                 <p>2. Вставьте в соответствующий клиент (V2RayNG, V2Box, Streisand, Nekobox и т.д.)</p>
                 <p>3. Выберите и активируйте соединение</p>
                 <p>4. Проверьте IP на 2ip.io или ipleak.net</p>
@@ -1131,21 +1203,84 @@
             });
         });
         
-        // Copy key on click
+        // Copy function with notification
+        const copyNotification = document.getElementById('copyNotification');
+        
+        function copyToClipboard(text, element = null) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show notification
+                copyNotification.classList.add('show');
+                
+                // Highlight the copied element if provided
+                if (element) {
+                    element.classList.add('copied');
+                    setTimeout(() => {
+                        element.classList.remove('copied');
+                    }, 1500);
+                }
+                
+                // Hide notification after 3 seconds
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('Ошибка копирования: ', err);
+                alert('Не удалось скопировать текст. Скопируйте вручную: ' + text);
+            });
+        }
+        
+        // Copy key on click (key-value elements)
         document.querySelectorAll('.key-value').forEach(key => {
             key.addEventListener('click', function() {
-                const text = this.textContent;
-                navigator.clipboard.writeText(text).then(() => {
-                    const original = this.textContent;
-                    this.textContent = '✅ Скопировано!';
-                    this.style.backgroundColor = 'rgba(0, 255, 157, 0.2)';
-                    setTimeout(() => {
-                        this.textContent = original;
-                        this.style.backgroundColor = '';
-                    }, 1500);
-                });
+                const text = this.textContent.trim();
+                copyToClipboard(text, this);
             });
         });
+        
+        // Copy key on button click
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const key = this.getAttribute('data-key');
+                copyToClipboard(key);
+                
+                // Visual feedback for button
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+                this.style.background = 'rgba(0, 255, 157, 0.3)';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.background = '';
+                }, 1500);
+            });
+        });
+        
+        // Copy creator links on click
+        document.querySelectorAll('.creator-link[href^="http"], .creator-link[href^="mailto"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // For external links, allow normal navigation
+                if (this.getAttribute('href').startsWith('http') || 
+                    this.getAttribute('href').startsWith('mailto')) {
+                    return; // Allow default behavior
+                }
+                
+                // For buttons that might have copy functionality
+                if (this.getAttribute('onclick')) {
+                    return; // Allow onclick to execute
+                }
+            });
+        });
+        
+        // Creator card button functions
+        function showTeamInfo() {
+            copyToClipboard("Команда NewErka: Ответственные за техническую часть проекта. Контакты через техподдержку.");
+            alert("Информация о команде скопирована в буфер обмена!");
+        }
+        
+        function showSponsorInfo() {
+            copyToClipboard("Спонсор Neptun: Предоставляет инфраструктуру для проекта. Подробности не разглашаются.");
+            alert("Информация о спонсоре скопирована в буфер обмена!");
+        }
         
         // Add click effect to Z-box
         document.querySelector('.z-box').addEventListener('click', function() {
