@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЄтоНіЯ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="cdnjs.cloudflare.com">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --deep-space: #0a0a16;
+            --cosmic-purple: #1a1a2e;
+            --stardust: #16213e;
+            --nebula: #0f3460;
+            --void: #000000;
+            --celestial: #00ff9d;
+            --starlight: #f0f0f0;
+            --moonlight: #a9b7c7;
+            --warning: #ff4757;
+            --z-color: #ffd700;
+            --link-color: #4dabf7;
+            --shadow: rgba(0, 0, 0, 0.7);
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--cosmic-purple) 50%, var(--stardust) 100%);
+            color: var(--starlight);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(15, 52, 96, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(22, 33, 62, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 30px 0;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--celestial), #00ccff, #9d00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(0, 255, 157, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .logo-sub {
+            color: var(--celestial);
+            text-align: center;
+            letter-spacing: 5px;
+            margin-top: -5px;
+            font-weight: 300;
+        }
+        
+        .tagline {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--moonlight);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            margin: 0 15px;
+            padding: 10px 25px;
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 30px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: var(--starlight);
+            display: inline-block;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--celestial);
+            border-color: var(--celestial);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            background: rgba(0, 255, 157, 0.05);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(10, 10, 22, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--celestial), var(--nebula));
+        }
+        
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--starlight);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--celestial);
+            border-radius: 3px;
+        }
+        
+        .card p {
+            margin-bottom: 20px;
+            color: var(--moonlight);
+            font-size: 1.1rem;
+        }
+        
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .card li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--moonlight);
+        }
+        
+        .card li::before {
+            content: '🔑';
+            position: absolute;
+            left: 0;
+            color: var(--celestial);
+            font-size: 0.9em;
+        }
+        
+        /* Keys Section */
+        .keys-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--celestial), transparent);
+        }
+        
+        .keys-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .key-card {
+            background: rgba(10, 10, 22, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .key-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            border-color: var(--celestial);
+        }
+        
+        .key-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .key-card:hover::before {
+            opacity: 1;
+        }
+        
+        .key-icon {
+            font-size: 2.5rem;
+            color: var(--celestial);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .key-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .key-card p {
+            color: var(--moonlight);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .key-value {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            font-size: 0.9rem;
+            color: var(--celestial);
+            text-align: center;
+            border: 1px dashed rgba(0, 255, 157, 0.3);
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .key-value:hover {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--celestial);
+        }
+        
+        .key-value.copied {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--celestial);
+            color: var(--celestial);
+        }
+        
+        .copy-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--celestial);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            margin-top: 15px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .protocol-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--celestial);
+            margin: 5px;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+        
+        /* Warning Box */
+        .warning-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 2px solid var(--warning);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .warning-box::before {
+            content: ⚠️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+        
+        .warning-title {
+            color: var(--warning);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .warning-title i {
+            font-size: 1.5rem;
+        }
+        
+        /* Z-box */
+        .z-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
+            border: 2px solid var(--z-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .z-box::before {
+            content: '🕊';
+            position: absolute;
+            font-size: 15rem;
+            font-weight: 900;
+            color: rgba(255, 215, 0, 0.05);
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        
+        .z-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--z-color);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+            line-height: 1.3;
+        }
+        
+        .z-subtext {
+            color: #ff8c00;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Creators Section */
+        .creators-section {
+            margin: 80px 0;
+        }
+        
+        .creators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .creator-card {
+            background: rgba(10, 10, 22, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .creator-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--celestial);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+        
+        .creator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .creator-card:hover::before {
+            opacity: 1;
+        }
+        
+        .creator-icon {
+            font-size: 3.5rem;
+            color: var(--celestial);
+            margin-bottom: 20px;
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 255, 157, 0.1);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+        }
+        
+        .creator-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--starlight);
+        }
+        
+        .creator-role {
+            color: var(--celestial);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .creator-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--celestial);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        .creator-link:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .creator-description {
+            color: var(--moonlight);
+            font-size: 1.1rem;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        
+        /* Sponsor Badge */
+        .sponsor-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+            color: #000;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
+        /* Useful Links Section */
+        .links-section {
+            margin: 80px 0;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .link-card {
+            background: rgba(10, 10, 22, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--celestial);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .link-icon {
+            font-size: 3rem;
+            color: var(--moonlight);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .link-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--starlight);
+        }
+        
+        .link-content p {
+            color: var(--moonlight);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--celestial), #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--starlight);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--celestial);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: var(--moonlight);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        .footer-note {
+            color: var(--celestial);
+            font-size: 0.8rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--celestial);
+            font-size: 1.8rem;
+            cursor: pointer;
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 255, 157, 0.9);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .copy-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Responsive - Mobile */
+        @media (max-width: 992px) {
+            .keys-grid,
+            .creators-grid,
+            .links-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(10, 10, 22, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 999;
+                padding: 80px 20px;
+                overflow-y: auto;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                margin: 10px 0;
+                padding: 15px 20px;
+                font-size: 1.2rem;
+                text-align: center;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+                margin-top: 20px;
+            }
+            
+            .logo-sub {
+                font-size: 0.9rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            
+            .main-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .card {
+                min-width: 100%;
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .key-card,
+            .creator-card {
+                padding: 20px;
+            }
+            
+            .z-text {
+                font-size: 1.8rem;
+            }
+            
+            .z-box::before {
+                font-size: 10rem;
+                top: -30px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .creator-icon {
+                font-size: 2.5rem;
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+            }
+            
+            .creator-card h3 {
+                font-size: 1.5rem;
+            }
+            
+            .copy-notification {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .keys-grid,
+            .creators-grid,
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .z-text {
+                font-size: 1.5rem;
+            }
+            
+            .creator-link,
+            .copy-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Particles */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Special Elements */
+        .three-letters {
+            display: inline-block;
+            color: var(--celestial);
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px currentColor;
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Section spacer */
+        .section-spacer {
+            height: 80px;
+        }
+        
+        /* Red flag style */
+        .red-flag {
+            color: var(--warning);
+            font-weight: bold;
+            font-style: italic;
+        }
+        
+        /* Probably style */
+        .probably {
+            color: var(--moonlight);
+            font-style: italic;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <!-- Copy Notification -->
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Ключ скопирован в буфер обмена!
+    </div>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <header>
+        <div class="container">
+            <h1><div class="logo-sub floating">Єто • Ні • Я</div></h1>
+            <h4><div class="logo-sub">aka VPN</div></h4>
+            <p class="tagline">Сила трёх букв. Ключи к свободе.</p>
+            
+            <nav id="mainNav">
+                <a href="#keys" class="nav-link active">Ключи</a>
+                <a href="#creators" class="nav-link">Создатели</a>
+                <a href="#links" class="nav-link">Полезные ссылки</a>
+                <a href="#tutorial" class="nav-link">Инструкция</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="section-spacer" id="keys"></div>
+        <section class="keys-section">
+            <h2 class="section-title">Активировать подписку</h2>
+                <div class="key-card">
+                    <div class="key-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Основная подписка</h3>
+                    <p>Просто вставь ссылку в Happ или V2Box</p>
+                    <div class="key-value" id="mainKey">
+                        https://etoneya.a9fm.site/1
+                    </div>
+                    <div>
+                        <span class="protocol-badge">Free</span>
+                        <span class="protocol-badge">Love</span>
+                        <span class="protocol-badge">VLESS & SS</span>
+                    </div>
+                </div>
+        </section>
+        
+        <div class="section-spacer" id="creators"></div>
+        <section class="creators-section">
+            <h2 class="section-title">Создатели & Спонсоры</h2>
+            
+            <div class="creators-grid">
+                <div class="creator-card">
+                    <div class="creator-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>A9FM</h3>
+                    <div class="creator-role">Главный СвиноZондбе</div>
+                    <p class="creator-description">
+                        Основатель проекта. Отвечает за стратегию, финансирование и общее руководство. Имеет связи в нужных кругах.
+                    </p>
+                </div>
+                
+                <div class="creator-card">
+                    <div class="creator-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Neptun</h3>
+                    <div class="creator-role">Разработчик сайта</div>
+                    <p class="creator-description">
+                        Neptun - Главный Кодер этого кривого сайта - все вопросы к нему (он вам не ответит Ему все равно он из ########) 
+                    </p>
+                </div>
+                
+                <div class="creator-card">
+                    <div class="creator-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Отдельная благодарность</h3>
+                    <div class="creator-role">Спонсоры и Сообщество</div>
+                    <p class="creator-description">
+                        Отдельная благодарность: <b>AR34</b>, <b>Kugona</b>
+                    </p>
+                    <div class="sponsor-badge">СПАСИБО!</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-spacer" id="links"></div>
+        <section class="links-section">
+            <h2 class="section-title">Полезные ссылки</h2>
+            
+            <div class="links-grid">
+                <div class="link-card">
+                    <div class="link-icon">
+                        <i class="fab fa-telegram" style="font-size:55px"></i>
+                    </div>
+                    <div class="link-content">
+                        <h4>Официальный Telegram канал</h4>
+                        <p><a href="https://t.me/YoutubeUnBlockRU">@YoutubeUnBlockRU</a></p>
+                    </div>
+                </div>
+                
+                <div class="link-card">
+                    <div class="link-icon">
+                        <i class="fas fa-clock" style="font-size:55px"></i>
+                    </div>
+                    <div class="link-content">
+                        <h4>В разработке</h4>
+                        <p>Раздел обновляется и пополняется</p>
+                    </div>
+                </div>
+                
+                <div class="link-card">
+                    <div class="link-icon">
+                        <i class="fas fa-hourglass-half" style="font-size:55px"></i>
+                    </div>
+                    <div class="link-content">
+                        <h4>Ожидайте</h4>
+                        <p>Скоро здесь появятся полезные материалы</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-spacer" id="tutorial"></div>
+        <section class="main-content">
+            <div class="card">
+                <h2>Инструкция по использованию</h2>
+                <p>1. Скопируйте подписку полностью (клик по синему полю или кнопке)</p>
+                <p>2. Вставьте в соответствующий клиент (V2RayNG, V2Box, Streisand, Nekobox и т.д.)</p>
+                <p>3. Выберите и активируйте соединение</p>
+                <p>4. Проверьте IP на 2ip.io или ipleak.net</p>
+                
+                <div class="warning-box">
+                    <div class="warning-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ
+                    </div>
+                    <p>Как минимум не скачивайте Max, Vk, Гос. Услуги</p>
+                    <p style="color: var(--warning); font-weight: 600; margin-top: 10px;">
+                        Эти приложения могут собирать ваши данные и передавать их третьим лицам
+                    </p>
+                </div>
+                
+                <div class="z-box">
+                    <div class="z-text glow">Че-то там думайте</div>
+                    <div class="z-text glow">Че-то там за нами!!!</div>
+                    <div class="z-subtext">Мысли свободны. Действия осознанны.</div>
+                </div>
+                
+                <p class="pulse" style="color: var(--celestial); text-align: center; margin-top: 20px;">
+                    🔑 Ключи обновляются частенько
+                </p>
+            </div>
+        </section>
+        
+        <div class="section-spacer" id="contact"></div>
+        <section class="creators-section">
+            <h2 class="section-title">Контакты для связи</h2>
+            
+            <div class="creators-grid">
+                <div class="creator-card">
+                    <div class="creator-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Техподдержка</h3>
+                    <div class="creator-role">Помощь с настройкой</div>
+                    <p class="creator-description">
+                        Если у вас возникли проблемы с подключением или настройкой VPN, наша команда поддержки готова помочь 0/7 (никогда не поможет).
+                    </p>
+                    <a href="https://t.me/etoniya_support" target="_blank" class="creator-link">
+                        <i class="fab fa-telegram"></i> Telegram поддержка
+                    </a>
+                </div>
+                
+                <div class="creator-card">
+                    <div class="creator-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>Багрепорты</h3>
+                    <div class="creator-role">Сообщить об ошибке</div>
+                    <p class="creator-description">
+                        Нашли баг или уязвимость? Сообщите нам для оперативного исправления. 
+                        <span class="red-flag">Это чо то делать надо? Это Red Flag</span>
+                    </p>
+                    <a href="mailto:bugs@etoniya.vpn" class="creator-link">
+                        <i class="fas fa-envelope"></i> Отправить отчёт
+                    </a>
+                </div>
+                
+                <div class="creator-card">
+                    <div class="creator-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Сотрудничество</h3>
+                    <div class="creator-role">Для партнёров</div>
+                    <p class="creator-description">
+                        Хотите стать спонсором или партнёром проекта? Предложения о сотрудничестве рассматриваем в приоритетном порядке <span class="probably">(наверное)</span>.
+                    </p>
+                    <a href="mailto:partner@etoniya.vpn" class="creator-link">
+                        <i class="fas fa-handshake"></i> Предложить сотрудничество
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">ЄтоНіЯ</div>
+            <p>Ключи к цифровой свободе. Сила трёх букв.</p>
+            
+            <div class="social-links">
+                <a href="https://a9fm.site" target="_blank" class="social-link"><i class="fas fa-key"></i></a>
+            </div>
+            
+            <p class="copyright">© 2025 ЄтоНіЯ. Для образовательных целей(ну почти). Свобода — это право, которого у вас нету и не будет xD).</p>
+            <p class="footer-note">
+                Контакты: a9fm.site
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 800 } },
+                color: { value: "#00ff9d" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#a9b7c7",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 3,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Navigation active state
+        const sections = document.querySelectorAll('section, .section-spacer');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Copy function with notification
+        const copyNotification = document.getElementById('copyNotification');
+        
+        function copyToClipboard(text, element = null) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show notification
+                copyNotification.classList.add('show');
+                
+                // Highlight the copied element if provided
+                if (element) {
+                    element.classList.add('copied');
+                    setTimeout(() => {
+                        element.classList.remove('copied');
+                    }, 1500);
+                }
+                
+                // Hide notification after 3 seconds
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('Ошибка копирования: ', err);
+                alert('Не удалось скопировать текст. Скопируйте вручную: ' + text);
+            });
+        }
+        
+        // Copy key on click (key-value elements)
+        document.querySelectorAll('.key-value').forEach(key => {
+            key.addEventListener('click', function() {
+                const text = this.textContent.trim();
+                copyToClipboard(text, this);
+            });
+        });
+        
+        // Copy key on button click
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const key = this.getAttribute('data-key');
+                copyToClipboard(key);
+                
+                // Visual feedback for button
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+                this.style.background = 'rgba(0, 255, 157, 0.3)';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.background = '';
+                }, 1500);
+            });
+        });
+        
+        // Copy creator links on click
+        document.querySelectorAll('.creator-link[href^="http"], .creator-link[href^="mailto"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // For external links, allow normal navigation
+                if (this.getAttribute('href').startsWith('http') || 
+                    this.getAttribute('href').startsWith('mailto')) {
+                    return; // Allow default behavior
+                }
+                
+                // For buttons that might have copy functionality
+                if (this.getAttribute('onclick')) {
+                    return; // Allow onclick to execute
+                }
+            });
+        });
+        
+        // Add click effect to Z-box
+        document.querySelector('.z-box').addEventListener('click', function() {
+            this.classList.add('pulse');
+            setTimeout(() => {
+                this.classList.remove('pulse');
+            }, 1000);
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
